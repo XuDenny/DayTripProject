@@ -1,21 +1,20 @@
-//*array variables//
-let destinations = ["Catalina Island", "Las Vegas", "San Diego", "Solvang", "Malibu", "Palm Springs", "Joshua Tree" ];
-let restaurant = ["Sushi", "Shabu-Shabu", "Korean BBQ", "Pho", "Burritos", "Pasta"];
-let transportation = ["Car", "Plane", "Boat", "Bike", "Scooter", "Bus"];
-let entertainment = ["Movies", "Stargaze", "Paint", "Hike", "Concert", "Shop"];
+//Array variables
+const destinations = ["Catalina Island", "Las Vegas", "San Diego", "Solvang", "Malibu", "Palm Springs", "Joshua Tree"];
+const restaurants = ["Sushi", "Shabu-Shabu", "Korean BBQ", "Pho", "Burritos", "Pasta"];
+const transportations = ["Car", "Plane", "Boat", "Bike", "Scooter", "Bus"];
+const entertainments = ["Movies", "Stargaze", "Paint", "Hike", "Concert", "Shop"];
 
-//*Random function//
-function getRandom(item){
-    return item[Math.floor(math.random() * item.length)];
+//Random function
+function getRandom(item) {
+    return item[Math.floor(Math.random() * item.length)];
 }
 
-
-//*day trip generator//
-function generateDayTrip(){
-    let destination = getRandom(destinations);
-    let restaurant = getRandom(restaurant);
-    let transportation = getRandom(transportation);
-    let entertainment = getRandom(entertainment);
+//Day trip generator
+function generateDayTrip() {
+    const destination = getRandom(destinations);
+    const restaurant = getRandom(restaurants);
+    const transportation = getRandom(transportations);
+    const entertainment = getRandom(entertainments);
     return {
         destination: destination,
         restaurant: restaurant,
@@ -25,54 +24,47 @@ function generateDayTrip(){
 }
 
 function displayTrip(dayTrip) {
-    let message = 'Your day trip has been generated! \n\nWhere we going?: ${dayTrip.destination}\n Where we eating?: ${dayTrip.restaurant}\n What we riding?: ${dayTrip.transportation}\n What we doing?: ${dayTrip.entertainment}';
-    alert(message)
+    let message = `Your day trip has been generated! \n\nWhere we going?: ${dayTrip.destination}\nWhat we eating?: ${dayTrip.restaurant}\nWhat we riding?: ${dayTrip.transportation}\nWhat we doing?: ${dayTrip.entertainment}`;
+    alert(message);
 }
 
-//* confirmation//
+//Confirmation
 function confirmTrip(dayTrip) {
-    let confirmation = prompt('Your day trip is :\n\nDestionation: ${daytip.destination)\nRestauraunt: ${dayTrip.restaurant}\nTransportation: ${dayTrip.transportation}\nEntertainment: ${dayTrip.entertainment}\n\n Are you happy with the choices? Type `yes` or `no`.');
-    return confirmation.toLowerCase() === 'Yes';
+    let confirm = prompt(`Your day trip is :\n\nDestination: ${dayTrip.destination}\nRestaurant: ${dayTrip.restaurant}\nTransportation: ${dayTrip.transportation}\nEntertainment: ${dayTrip.entertainment}\n\nAre you happy with the choices? Type 'yes' or 'no'`);
+    return confirm.toLowerCase() === 'yes';
 }
 
-//*Reselection//
-function reselectItem(type){
-    let reselectItem = getRandom(eval(type));
-    return reselectItem;
-}
+//Main Function
+function runGenerateDayTrip() {
+    let dayTrip = generateDayTrip();
+    let confirm = false;
 
-//*Main Function
-function runGenerateDayTrip(){
-    let dayTrip;
-    let confirm= false;
-
-    do{
-        dayTrip = generateDayTrip();
+    do {
         confirm = confirmTrip(dayTrip);
 
-        if(!confirm){
-            let reselectItem = prompt('Which item would you like to regenerate?\n1. Destination\n2.Restaurant\n3. Transportation\n4. Entertainment.');
-            switch (reselectItem) {
+        if (!confirm) {
+            let unhappySelection = prompt('Which item would you like to regenerate?\n1. Destination\n2. Restaurant\n3. Transportation\n4. Entertainment.');
+
+            switch (unhappySelection) {
                 case "1":
-                    dayTrip.destination = reselectItem("destination");
+                    dayTrip.destination = getRandom(destinations);
                     break;
                 case "2":
-                    dayTrip.restaurant = reselectItem("restaurant");
+                    dayTrip.restaurant = getRandom(restaurants);
                     break;
                 case "3":
-                    dayTrip.transportation= reselectItem("transportation");
+                    dayTrip.transportation = getRandom(transportations);
                     break;
                 case "4":
-                    dayTrip.entertainment= reselectItem("entertainment");
+                    dayTrip.entertainment = getRandom(entertainments);
                     break;
                 default:
-                    alert('Invalid input. Please enter a number form 1 to 4"')
+                    alert('Invalid input. Please enter a number from 1 to 4.');
             }
-
         }
     } while (!confirm);
 
-    displayTrip(dayTrip)
+    displayTrip(dayTrip);
 }
 
 //*Run//
